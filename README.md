@@ -41,7 +41,7 @@ cd claude-code-personal-os
 ./install.sh ~/brain
 ```
 
-The installer asks which language to use (or pass `--lang Norwegian`). It copies the
+The installer asks which language to use (or pass `--lang Spanish`). It copies the
 template to `~/brain`, creates a git repository there, and connects it to Claude Code:
 
 - `~/.claude/CLAUDE.md` becomes a link to the brain's global file. An existing one is

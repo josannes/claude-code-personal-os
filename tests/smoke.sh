@@ -26,11 +26,11 @@ echo '{"theme": "dark", "hooks": {"Stop": [{"hooks": [{"type": "command", "comma
 # A path with spaces, like iCloud Drive, and git history outside it
 BRAIN="$TMP/home/Cloud Drive/my brain"
 echo "Install"
-out=$("$REPO/install.sh" "$BRAIN" --lang Norwegian --git-dir "$HOME/.brain.git" </dev/null 2>&1); rc=$?
+out=$("$REPO/install.sh" "$BRAIN" --lang Spanish --git-dir "$HOME/.brain.git" </dev/null 2>&1); rc=$?
 check "install exits 0" '[ $rc -eq 0 ]' || echo "$out"
 check "template copied" '[ -f "$BRAIN/CLAUDE.md" ] && [ -f "$BRAIN/00_me/PROFILE.md" ]'
 check "gitignore copied" '[ -f "$BRAIN/.gitignore" ]'
-check "language set" 'grep -q "Content language: \*\*Norwegian\*\*" "$BRAIN/CLAUDE.md"'
+check "language set" 'grep -q "Content language: \*\*Spanish\*\*" "$BRAIN/CLAUDE.md"'
 check "brain path filled in" '! grep -q "{{BRAIN}}" "$BRAIN/05_ai/claude/global-CLAUDE.md" && grep -q "$BRAIN" "$BRAIN/05_ai/claude/global-CLAUDE.md"'
 check "git dir outside brain" '[ -f "$BRAIN/.git" ] && [ -d "$HOME/.brain.git" ]'
 check "first commit" '[ "$(git -C "$BRAIN" rev-list --count HEAD 2>/dev/null)" = "1" ]'
