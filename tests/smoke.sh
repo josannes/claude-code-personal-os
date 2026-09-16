@@ -20,6 +20,9 @@ check() {
   else fail=$((fail+1)); echo "  FAIL  $1"; fi
 }
 
+# An existing global CLAUDE.md that must be backed up and restored
+echo "my old global" > "$HOME/.claude/CLAUDE.md"
+
 # An existing settings.json that must survive the merge
 echo '{"theme": "dark", "hooks": {"Stop": [{"hooks": [{"type": "command", "command": "echo mine"}]}]}}' > "$HOME/.claude/settings.json"
 
@@ -36,6 +39,7 @@ check "git dir outside brain" '[ -f "$BRAIN/.git" ] && [ -d "$HOME/.brain.git" ]
 check "first commit" '[ "$(git -C "$BRAIN" rev-list --count HEAD 2>/dev/null)" = "1" ]'
 check "LOG entry" 'grep -q "Brain created" "$BRAIN/LOG.md"'
 check "global CLAUDE.md linked" '[ "$(readlink "$HOME/.claude/CLAUDE.md")" = "$BRAIN/05_ai/claude/global-CLAUDE.md" ]'
+check "old global CLAUDE.md backed up" 'grep -q "my old global" "$HOME/.claude/"CLAUDE.md.backup-*'
 check "skills linked" '[ -f "$HOME/.claude/skills/new-project/SKILL.md" ] && [ -f "$HOME/.claude/skills/review-brain/SKILL.md" ]'
 check "settings kept" 'python3 -c "import json,sys; s=json.load(open(sys.argv[1])); assert s[\"theme\"]==\"dark\"; assert any(h[\"command\"]==\"echo mine\" for g in s[\"hooks\"][\"Stop\"] for h in g[\"hooks\"])" "$HOME/.claude/settings.json"'
 check "hooks registered" 'grep -q "session-start.sh" "$HOME/.claude/settings.json" && grep -q "auto-commit.sh" "$HOME/.claude/settings.json"'
@@ -80,6 +84,14 @@ check "commits from root" '[ "$(git -C "$BRAIN" rev-list --count HEAD)" = "3" ]'
 check "sensitive folder ignored" 'echo x > "$BRAIN/00_me/documents/id.txt" && [ -z "$(git -C "$BRAIN" status --porcelain)" ]'
 check "health data ignored" 'mkdir -p "$BRAIN/06_health/research" && echo x > "$BRAIN/06_health/summary.md" && echo x > "$BRAIN/06_health/research/q.md" && [ -z "$(git -C "$BRAIN" status --porcelain -uall)" ]'
 check "health rules tracked" 'git -C "$BRAIN" ls-files --error-unmatch 06_health/CLAUDE.md >/dev/null 2>&1'
+
+echo "uninstall.sh"
+out=$("$REPO/uninstall.sh" </dev/null 2>&1); rc=$?
+check "uninstall exits 0" '[ $rc -eq 0 ]' || echo "$out"
+check "old global CLAUDE.md restored" '[ ! -L "$HOME/.claude/CLAUDE.md" ] && [ "$(cat "$HOME/.claude/CLAUDE.md")" = "my old global" ]'
+check "skills removed" '[ ! -e "$HOME/.claude/skills/new-project" ] && [ ! -e "$HOME/.claude/skills/review-brain" ]'
+check "brain hooks removed, other settings kept" 'python3 -c "import json,sys; s=json.load(open(sys.argv[1])); assert s[\"theme\"]==\"dark\"; c=[h[\"command\"] for e in s[\"hooks\"].values() for g in e for h in g[\"hooks\"]]; assert c==[\"echo mine\"], c" "$HOME/.claude/settings.json"'
+check "brain left untouched" '[ -f "$BRAIN/CLAUDE.md" ] && [ -f "$BRAIN/inbox.md" ]'
 
 echo
 echo "$pass passed, $fail failed"
