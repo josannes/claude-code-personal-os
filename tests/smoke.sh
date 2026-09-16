@@ -36,7 +36,7 @@ check "git dir outside brain" '[ -f "$BRAIN/.git" ] && [ -d "$HOME/.brain.git" ]
 check "first commit" '[ "$(git -C "$BRAIN" rev-list --count HEAD 2>/dev/null)" = "1" ]'
 check "LOG entry" 'grep -q "Brain created" "$BRAIN/LOG.md"'
 check "global CLAUDE.md linked" '[ "$(readlink "$HOME/.claude/CLAUDE.md")" = "$BRAIN/05_ai/claude/global-CLAUDE.md" ]'
-check "skill linked" '[ -f "$HOME/.claude/skills/new-project/SKILL.md" ]'
+check "skills linked" '[ -f "$HOME/.claude/skills/new-project/SKILL.md" ] && [ -f "$HOME/.claude/skills/review-brain/SKILL.md" ]'
 check "settings kept" 'python3 -c "import json,sys; s=json.load(open(sys.argv[1])); assert s[\"theme\"]==\"dark\"; assert any(h[\"command\"]==\"echo mine\" for g in s[\"hooks\"][\"Stop\"] for h in g[\"hooks\"])" "$HOME/.claude/settings.json"'
 check "hooks registered" 'grep -q "session-start.sh" "$HOME/.claude/settings.json" && grep -q "auto-commit.sh" "$HOME/.claude/settings.json"'
 check "settings backed up" 'ls "$HOME/.claude/" | grep -q "settings.json.backup-"'
