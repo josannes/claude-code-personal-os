@@ -86,7 +86,7 @@ else
 fi
 
 # 4. Connect to Claude Code
-CLAUDE_HOME="$HOME/.claude"
+CLAUDE_HOME="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 stamp=$(date +%Y%m%d-%H%M%S)
 mkdir -p "$CLAUDE_HOME/skills"
 
