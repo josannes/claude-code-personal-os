@@ -11,6 +11,12 @@ One folder per term, one subfolder per course, made with `/new-project`.
 - Course folders: the course code or a short name.
 - Each term folder has a `deadlines.md` with exams and hand-ins for all its courses.
 
+## Language in courses
+
+Technical terms stay in the language the course teaches them in. They are terms, not
+translations, and the exam will use them. Explanations around them follow the content
+language in the root.
+
 ## Three rules for every course
 
 **1. The exam format first.** The first task in a new course is reading the course
@@ -25,6 +31,12 @@ which means the material is broken, not you).
 **3. School material in `_source/`, text extracts in `_raw/`, everything else is yours.**
 Verify against the syllabus, don't remember: search `_raw/` before claiming something is
 part of the course.
+
+## Group work
+
+Shared group folders live where the group shares them (a school drive, a shared cloud
+folder), not in the brain. A course folder can point to them, but the group's folder is the
+source of truth for group deliverables. Your own notes and drafts stay here.
 
 ## Never
 
