@@ -14,15 +14,19 @@ This template gives you:
 - **A root `CLAUDE.md`** with a short "who I am" block and rules that keep context from
   rotting: rules and status live in different files, volatile numbers are never written
   down, and Claude writes `TODO` instead of guessing about you.
-- **Folders for studies, work, money and projects**, each with its own `CLAUDE.md`.
+- **Folders for studies, work, money, projects and health**, each with its own `CLAUDE.md`.
+- **Health that never enters git.** Only the rules are tracked. They put urgency first,
+  never give doses from memory, and log every question so doctor visits start prepared.
 - **Two hooks.** At session start, Claude gets a short banner: which `CLAUDE.md` files are
-  loaded, how many lines are waiting in the inbox, when the log was last updated. After
-  every response, everything that changed is committed to git, so you never have to think
-  about it.
+  loaded, what is due in the next 14 days, how many lines are waiting in the inbox, when
+  the log was last updated. After every response, everything that changed is committed to
+  git, so you never have to think about it.
 - **An inbox, an append-only log and a decisions file**, so loose ideas get sorted and
   rejected ideas don't come back.
 - **Templates** for a new course (designed around the exam format) and a new project.
-- **A `/new-project` skill** that reads the neighbouring folders before it creates anything.
+- **Two skills.** `/new-project` reads the neighbouring folders before it creates anything.
+  `/review-brain` finds stale status files, dead pointers and contradictions, and fixes
+  only what you approve.
 - **Any language.** The template is in English, but you choose the language Claude writes
   and answers in when you install.
 
@@ -55,6 +59,9 @@ Then:
 2. Start a Claude Code session in `~/brain` and ask "what do you know about me?".
 3. Run `/new-project` for your first course or project.
 
+**Changed your mind?** `./uninstall.sh` removes the links and hooks and restores the global
+`CLAUDE.md` you had before. Your brain folder is left alone.
+
 **Using iCloud Drive or Dropbox?** Git and file sync fight over the same small files.
 Keep the history outside the synced folder:
 
@@ -80,6 +87,7 @@ brain/
 ├── CLAUDE.md          who you are, the map, the rules
 ├── HANDBOOK.md        how it works and why
 ├── inbox.md           loose things, sorted later
+├── deadlines.md       dates that matter, shown at session start
 ├── LOG.md             what happened, newest first
 ├── DECISIONS.md       choices made, and why
 ├── 00_me/             your profile
@@ -88,6 +96,7 @@ brain/
 ├── 03_money/          budget and overview
 ├── 04_projects/       everything else in progress
 ├── 05_ai/claude/      hooks, skills, global CLAUDE.md
+├── 06_health/         health, only the rules are in git
 └── _templates/        course and project templates
 ```
 
@@ -99,8 +108,8 @@ Delete the folders you will never use.
 tests/smoke.sh
 ```
 
-Installs into a throwaway home folder, so your real `~/.claude` is never touched, and runs
-both hooks with fake input.
+Installs into a throwaway home folder, so your real `~/.claude` is never touched, runs both
+hooks with fake input, and uninstalls again.
 
 ## Why I built it
 
@@ -116,8 +125,9 @@ I build.
 
 ## Status
 
-v0. Planned next: a fictional example brain, a style guard hook that blocks phrases you
-never want in text you hand in, and a skill that connects a code repo to its project folder.
+v0.1. Planned next: a style guard hook that blocks phrases you never want in text you hand
+in, a skill that connects a code repo to its project folder, adding to the inbox from your
+phone, and a fictional example brain.
 
 ## License
 

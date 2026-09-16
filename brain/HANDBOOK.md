@@ -77,6 +77,26 @@ Just start a session there. Inheritance happens by itself. No startup routine.
    experience, not a blueprint
 4. Fill in exam date, allowed aids and your goal
 
+### Deadlines
+
+Say "the exam is on 12 December" in any session, and Claude adds `- 2026-12-12: exam` to
+the nearest `deadlines.md`. Every session in the brain starts with what is due in the next
+14 days, so nothing sneaks up on you.
+
+### Keeping it alive
+
+Once a month, or when something feels off, run **`/review-brain`**. It finds stale status
+files, dead pointers, open TODOs, contradictions between layers and passed deadlines, and
+proposes fixes. It changes nothing until you say which ones to make.
+
+### Health
+
+`06_health/` is the one folder whose content never enters git: only its `CLAUDE.md` is
+tracked. Start a session there with a health question. The rules put urgency first, never
+give doses from memory, and log every question so the next doctor visit starts prepared.
+Fill in the sources and emergency numbers for your country before relying on it, and
+remember that what Claude reads is still sent to Anthropic.
+
 ### The inbox
 
 `inbox.md` is where loose things land: an idea, something to remember to ask, a file you
@@ -92,7 +112,7 @@ brain from their own location, and do nothing when a session runs outside the br
 
 | Hook | When | What |
 |---|---|---|
-| `session-start.sh` | Session start | A short banner in Claude's context: which `CLAUDE.md` files are loaded, age of `PROFILE.md`, last LOG date, inbox lines, uncommitted files. Warns about files that are only in iCloud |
+| `session-start.sh` | Session start | A short banner in Claude's context: which `CLAUDE.md` files are loaded, age of `PROFILE.md`, last LOG date, inbox lines, uncommitted files, open TODOs, and deadlines in the next 14 days. Warns about files that are only in iCloud |
 | `auto-commit.sh` | Every time Claude finishes a response | Commits everything that changed in the brain. Pushes in the background if a remote named `origin` exists |
 
 Turn auto-commit off for a session with `BRAIN_AUTOCOMMIT=0`. Test a hook by hand:
@@ -117,6 +137,10 @@ synced folder, install with `--git-dir` so the history lives outside it.
 backed up. `install.sh` only puts symlinks and hook entries there. `settings.json` is
 edited in place rather than symlinked, because Claude Code writes to it itself and can
 replace a symlink with a plain file.
+
+**Health outside git, not just private.** Auto-commit pushes after every response, and git
+history never forgets. Health notes have no place in it. A separate top-level folder also
+means a school or work session never loads health data by accident.
 
 **A short identity block in the root, the full profile on demand.** Irrelevant facts in
 every session are noise. Relevant facts should be easy to find, not always loaded.
@@ -143,6 +167,9 @@ Rename a folder, and the old sessions no longer show under the new name. Simple 
 **Check that inheritance works.** Start a session in a new folder under the root and ask
 "what do you know about me?". An empty answer means the folder is outside the root, or a
 cloud service has evicted the local copy (in iCloud, set the folder to "Keep Downloaded").
+
+**Disconnecting.** `uninstall.sh` in the template repository removes the links and hooks
+from `~/.claude/` and restores the global `CLAUDE.md` you had before. The brain stays.
 
 **`TODO` and `UNSURE` in files are on purpose.** The system should never guess about you.
 See a `TODO` you can answer? Answer it, and it disappears.
