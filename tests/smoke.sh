@@ -48,7 +48,15 @@ hook() { local cmd; cmd=$(python3 -c "import json,sys; s=json.load(open(sys.argv
 echo "session-start.sh"
 echo "- $(date +%F) test line" >> "$BRAIN/inbox.md"
 mkdir -p "$BRAIN/04_projects/demo" && echo "# demo" > "$BRAIN/04_projects/demo/CLAUDE.md"
+d() { python3 -c "import datetime,sys; print(datetime.date.today()+datetime.timedelta(days=int(sys.argv[1])))" "$1"; }
+mkdir -p "$BRAIN/01_studies/2030-autumn" "$BRAIN/06_health"
+printf -- "- %s: econ exam\n- %s: too far away\n- %s: already passed\n- [x] %s: done already\n" "$(d 3)" "$(d 20)" "$(d -2)" "$(d 2)" >> "$BRAIN/deadlines.md"
+printf -- "- %s: stats hand-in\n" "$(d 0)" > "$BRAIN/01_studies/2030-autumn/deadlines.md"
+printf -- "- %s: doctor appointment\n" "$(d 1)" > "$BRAIN/06_health/deadlines.md"
 out=$(hook SessionStart session-start "$BRAIN")
+check "deadlines shown in order" 'echo "$out" | grep -A2 "^Deadlines in the next 14 days:" | tail -2 | tr "\n" "|" | grep -q "(today): stats hand-in \[01_studies/2030-autumn\]|.*(in 3 days): econ exam|"'
+check "deadlines outside window hidden" '! echo "$out" | grep -qE "too far away|already passed|done already"'
+check "health deadlines never shown" '! echo "$out" | grep -q "doctor appointment"'
 check "banner in root" 'echo "$out" | grep -q "^Brain loaded: root$"'
 check "inbox counted and offered" 'echo "$out" | grep -q "Inbox: 1 lines" && echo "$out" | grep -q "Offer to sort it"'
 check "TODOs counted" 'echo "$out" | grep -qE "^[0-9]+ TODOs left"'

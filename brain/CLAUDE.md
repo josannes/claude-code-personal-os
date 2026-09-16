@@ -42,7 +42,7 @@ study choices, "is this relevant for me". Not otherwise.
 | `99_archive/` | Deactivated, not deleted. Never a source of truth | Rarely |
 
 Delete the folders you will never use. Root files: `inbox.md` (loose things not sorted
-yet), `LOG.md` (what happens, chronologically) and `DECISIONS.md` (choices made, with
+yet), `deadlines.md` (dates that matter), `LOG.md` (what happens, chronologically) and `DECISIONS.md` (choices made, with
 reasons). LOG and DECISIONS are **append-only**: never rewrite old entries, add new ones.
 
 ---
@@ -70,6 +70,10 @@ update `00_me/PROFILE.md` and add a line to `LOG.md`. Say that you did.
 **The inbox.** When I say "add to inbox", add a dated line to `inbox.md` in this root.
 When a session starts in the root and the inbox has content, offer to move each line to
 where it belongs and empty the file. The inbox should always be close to empty.
+
+**Deadlines.** When I mention a date that matters (exam, hand-in, application deadline,
+bill), add a line `- YYYY-MM-DD: what` to the nearest `deadlines.md`: the term folder for
+courses, otherwise the one in the root. The banner at session start shows the next 14 days.
 
 **Context is written where it belongs.** Something general about me learned while working
 in a course folder goes in `00_me/PROFILE.md`, not in the course's `CLAUDE.md`. Course

@@ -22,7 +22,8 @@ All paths below are relative to it. Never create anything outside it with this s
 | Project, side project, trip | `04_projects/<name>/` | `_templates/project/` |
 
 Term folders are named as `01_studies/CLAUDE.md` says. If the term folder does not exist,
-create it. Folder names are short, lowercase or course codes, no spaces.
+create it, with an empty `deadlines.md`. Folder names are short, lowercase or course codes,
+no spaces.
 
 **2. Read the neighbouring folders before writing anything.** This is the whole point.
 
@@ -39,10 +40,13 @@ create it. Folder names are short, lowercase or course codes, no spaces.
 you know from step 2, and ask the user about the rest in one round, not one question at a time.
 Anything still unknown after that becomes `TODO`.
 
-**4. Add a line to `LOG.md`** at the top, under the header, with today's date: what was
+**4. Add known dates to the nearest `deadlines.md`** (exam date, hand-ins, application
+deadline).
+
+**5. Add a line to `LOG.md`** at the top, under the header, with today's date: what was
 created and where.
 
-**5. Tell the user where the folder is** and what to do first.
+**6. Tell the user where the folder is** and what to do first.
 
 ## Rules
 

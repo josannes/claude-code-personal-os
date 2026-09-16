@@ -9,6 +9,7 @@ One folder per term, one subfolder per course, made with `/new-project`.
 - Term folders: `<YYYY>-<term>`, for example `2026-autumn`. TODO: change to how your school
   names terms, and keep it the same forever. Renamed folders lose their session history.
 - Course folders: the course code or a short name.
+- Each term folder has a `deadlines.md` with exams and hand-ins for all its courses.
 
 ## Three rules for every course
 
