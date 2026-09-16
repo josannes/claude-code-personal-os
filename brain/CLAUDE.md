@@ -37,6 +37,7 @@ study choices, "is this relevant for me". Not otherwise.
 | `03_money/` | Budget, fixed costs, overview | Money |
 | `04_projects/` | Side projects, trips, anything else in progress | Projects |
 | `05_ai/` | The Claude Code setup: hooks, skills, global `CLAUDE.md` | Changing how Claude works |
+| `06_health/` | Health summary, questions, doctor visits. Only `CLAUDE.md` is in git | Health questions |
 | `_templates/` | Templates for a new course and a new project | When something new starts |
 | `99_archive/` | Deactivated, not deleted. Never a source of truth | Rarely |
 
@@ -76,9 +77,9 @@ details don't go up to the root.
 
 **New folders are made from templates** with `/new-project`. Don't improvise structure.
 
-**Sensitive files.** `00_me/documents/` holds contracts, IDs and similar. It is gitignored,
-and its content is never copied into a file that ends up in git, an application, or an
-answer that gets shared.
+**Sensitive files.** `00_me/documents/` holds contracts, IDs and similar, and `06_health/`
+holds health data. Both are gitignored (except `06_health/CLAUDE.md`), and their content is
+never copied into a file that ends up in git, an application, or an answer that gets shared.
 
 **Look in the neighbouring folders.** New course: read `_templates/course/PATTERNS.md` and
 look at earlier course folders for inspiration, not as a blueprint. New application: read

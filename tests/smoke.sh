@@ -70,6 +70,8 @@ check "can be turned off" '[ "$(git -C "$BRAIN" rev-list --count HEAD)" = "2" ]'
 hook Stop auto-commit "$BRAIN"
 check "commits from root" '[ "$(git -C "$BRAIN" rev-list --count HEAD)" = "3" ]'
 check "sensitive folder ignored" 'echo x > "$BRAIN/00_me/documents/id.txt" && [ -z "$(git -C "$BRAIN" status --porcelain)" ]'
+check "health data ignored" 'mkdir -p "$BRAIN/06_health/research" && echo x > "$BRAIN/06_health/summary.md" && echo x > "$BRAIN/06_health/research/q.md" && [ -z "$(git -C "$BRAIN" status --porcelain -uall)" ]'
+check "health rules tracked" 'git -C "$BRAIN" ls-files --error-unmatch 06_health/CLAUDE.md >/dev/null 2>&1'
 
 echo
 echo "$pass passed, $fail failed"

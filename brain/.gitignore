@@ -4,6 +4,10 @@
 # Archive: deactivated, never a source of truth
 99_archive/
 
+# Health: only CLAUDE.md is in git. Everything else stays on this machine.
+06_health/**
+!06_health/CLAUDE.md
+
 # Binary files and media belong in your file storage, not in git history
 *.pdf
 *.doc

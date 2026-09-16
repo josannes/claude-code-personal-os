@@ -35,6 +35,10 @@ sound better than you are.
 
 TODO (for example: examples before theory, short tasks with clear done criteria)
 
+## Health
+
+Not here. Health lives in `06_health/`, outside git.
+
 ## Limits
 
 Things Claude should never do or claim on my behalf without asking.
